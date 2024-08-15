@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .textfield {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+            position: relative;
+        }
+        .speaker-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>College Chatbot</h1>
+        <form method="post">
+            <input type="text" name="user_query" class="textfield" placeholder="Enter your query..." required>
+            <button type="submit" class="button">Ask</button>
+        </form>
+        {% if user_query %}
+        <div class="response">
+            <strong>User Query:</strong> {{ user_query }}
+        </div>
+        <div class="response">
+            <strong>Chatbot Response:</strong> {{ chatbot_response }}
+            <span class="speaker-icon">
+                <img src="{{ url_for('static', filename='speaker.png') }}" alt="Play response" onclick="playResponseAudio()">
+            </span>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function playResponseAudio() {
+            var audio = new Audio('/play_response?ts=' + new Date().getTime());
+            audio.play();
+        }
+    </script>
+</body>
+</html>
